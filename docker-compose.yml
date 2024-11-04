@@ -54,8 +54,6 @@ services:
       - "slurmdbd"
     networks:
       - slurm-network
-    environment:
-      - REQUESTS_VERIFY_SSL=false
 
   c1:
     image: slurm-docker-cluster:${IMAGE_TAG}
