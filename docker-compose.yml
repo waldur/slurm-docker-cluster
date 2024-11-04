@@ -34,8 +34,13 @@ services:
       - slurm-network
 
   slurmctld:
-    image: slurm-docker-cluster:${IMAGE_TAG}
-    command: ["slurmctld"]
+    image: slurm-docker-cluster-with-waldur-agent:${IMAGE_TAG}
+    build:
+      context: .
+      dockerfile: Dockerfile.ctld
+      args:
+        SLURM_TAG: ${SLURM_TAG}
+        IMAGE_TAG: ${IMAGE_TAG}
     container_name: slurmctld
     hostname: slurmctld
     volumes:
