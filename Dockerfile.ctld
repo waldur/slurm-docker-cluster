@@ -39,9 +39,7 @@ RUN alternatives --set python /usr/bin/python3
 
 RUN pip3 install --upgrade pip
 
-RUN pip3 install Cython pytest waldur-site-agent supervisor
-
-ADD supervisord.conf /etc/supervisord.conf
+RUN pip3 install Cython pytest waldur-site-agent supervisor supervisor-stdout supervisor-stdlog
 
 ARG GOSU_VERSION=1.17
 
@@ -97,10 +95,7 @@ RUN set -x \
     && chmod 600 /etc/slurm/slurmdbd.conf
 
 RUN mkdir -p /etc/waldur
-COPY waldur-site-agent-config.yaml /etc/waldur/waldur-site-agent-config.yaml
 
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["supervisord"]
-
-

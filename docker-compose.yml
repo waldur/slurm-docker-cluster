@@ -48,6 +48,8 @@ services:
       - etc_slurm:/etc/slurm
       - slurm_jobdir:/data
       - var_log_slurm:/var/log/slurm
+      - ./supervisord.conf:/etc/supervisord.conf
+      - ./waldur-site-agent-config.yaml:/etc/waldur/waldur-site-agent-config.yaml
     expose:
       - "6817"
     depends_on:
