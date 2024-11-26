@@ -44,6 +44,7 @@ services:
     container_name: slurmctld
     hostname: slurmctld
     volumes:
+      - ./delete_hpc_accounts.sh:/delete_hpc_accounts.sh
       - etc_munge:/etc/munge
       - etc_slurm:/etc/slurm
       - slurm_jobdir:/data
