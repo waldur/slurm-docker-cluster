@@ -8,8 +8,8 @@ for account in $accounts; do
     echo "Canceling jobs for account $account"
     scancel --account="$account"
 	
-	echo "Deleting acc $account"
-	sacctmgr delete account name="$account" --immediate
+    echo "Deleting acc $account"
+    sacctmgr delete account name="$account" --immediate
 done
 
 echo "All hpc accounts deleted from slurm cluster."
