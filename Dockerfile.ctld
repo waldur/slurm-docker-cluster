@@ -17,8 +17,6 @@ RUN set -ex \
        wget \
        bzip2 \
        perl \
-    #    gcc \
-    #    gcc-c++\
        git \
        gnupg \
        make \
