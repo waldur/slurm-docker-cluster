@@ -8,15 +8,15 @@ LABEL org.opencontainers.image.source="https://github.com/giovtorres/slurm-docke
 
 RUN set -ex \
     && yum makecache \
-    && yum -y update \
+    && yum -y install epel-release \
     && yum -y install dnf-plugins-core \
     && yum config-manager --set-enabled powertools \
+    && yum -y update \
+    && yum -y install gcc-toolset-11 \
     && yum -y install \
        wget \
        bzip2 \
        perl \
-       gcc \
-       gcc-c++\
        git \
        gnupg \
        make \
@@ -39,9 +39,7 @@ RUN alternatives --set python /usr/bin/python3
 
 RUN pip3 install --upgrade pip
 
-RUN pip3 install Cython pytest waldur-site-agent supervisor
-
-ADD supervisord.conf /etc/supervisord.conf
+RUN pip3 install Cython pytest waldur-site-agent supervisor supervisor-stdout supervisor-stdlog
 
 ARG GOSU_VERSION=1.17
 
@@ -97,10 +95,7 @@ RUN set -x \
     && chmod 600 /etc/slurm/slurmdbd.conf
 
 RUN mkdir -p /etc/waldur
-COPY waldur-site-agent-config.yaml /etc/waldur/waldur-site-agent-config.yaml
 
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["supervisord"]
-
-

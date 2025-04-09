@@ -48,12 +48,19 @@ services:
       - etc_slurm:/etc/slurm
       - slurm_jobdir:/data
       - var_log_slurm:/var/log/slurm
+      - ./supervisord.conf:/etc/supervisord.conf
+      - ./waldur-site-agent-config.yaml:/etc/waldur/waldur-site-agent-config.yaml
     expose:
       - "6817"
     depends_on:
       - "slurmdbd"
     networks:
       - slurm-network
+    environment:
+      - REQUESTS_VERIFY_SSL=false
+      - WALDUR_SITE_AGENT_ORDER_PROCESS_PERIOD_MINUTES=1
+      - WALDUR_SITE_AGENT_REPORT_PERIOD_MINUTES=1
+      - WALDUR_SITE_AGENT_MEMBERSHIP_SYNC_PERIOD_MINUTES=1  
 
   c1:
     image: slurm-docker-cluster:${IMAGE_TAG}
